@@ -1,0 +1,16 @@
+{
+  "id": "1672050",
+  "name": "Covid-19",
+  "font_family": "iconfont-covid19",
+  "css_prefix_text": "el-icon-covid19",
+  "description": "covid19",
+  "glyphs": [
+    {
+      "icon_id": "11769993",
+      "name": "Attention",
+      "font_class": "Attention",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    }
+  ]
+}
