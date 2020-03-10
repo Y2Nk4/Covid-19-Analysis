@@ -19,7 +19,7 @@
                       <h1 class="section-title">National Report</h1>
 
                       <el-tabs v-model="CurrentTab" @tab-click="changeTab" class="main-tab">
-                          <el-tab-pane label="Glance" name="Glance">
+                          <el-tab-pane label="Summary" name="Glance">
                                 <glance-tab></glance-tab>
                           </el-tab-pane>
                           <el-tab-pane label="Increment" name="Increment">

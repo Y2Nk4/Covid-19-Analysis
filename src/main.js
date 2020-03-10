@@ -10,10 +10,15 @@ import VueRouter from 'vue-router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+/* Vue-Echarts */
+import ECharts from 'vue-echarts'
+import 'echarts-gl'
+
 Vue.prototype.$http = axios // 类似于vue-resource的调用方法
 
 Vue.use(ElementUI)
 Vue.use(VueRouter)
+Vue.component('v-chart', ECharts)
 
 /* eslint-disable no-new */
 new Vue({

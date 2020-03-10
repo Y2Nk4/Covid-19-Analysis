@@ -4,7 +4,7 @@ let Sequelize = require('sequelize'),
     moment = require('moment'),
     {Model} = Sequelize
 
-class NationalDailyRecord extends Model {
+class StateDailyRecord extends Model {
     addRecord (type, title, value, officialUpdatedAt) {
         return this.create({
             type,
@@ -16,7 +16,7 @@ class NationalDailyRecord extends Model {
     }
 }
 
-NationalDailyRecord.init({
+StateDailyRecord.init({
     id: {
         type: Sequelize.BIGINT,
         allowNull: false,
@@ -34,11 +34,23 @@ NationalDailyRecord.init({
         type: Sequelize.BIGINT,
         allowNull: false
     },
+    state_code: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    county: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     recorded_at: {
         type: 'TIMESTAMP'
     },
     official_updated_at: {
         type: 'TIMESTAMP'
+    },
+    is_regional: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
     },
     createdAt: {
         type: 'TIMESTAMP',
@@ -53,8 +65,8 @@ NationalDailyRecord.init({
 }, {
     sequelize,
     freezeTableName: true,
-    tableName: 'national_daily_records'
+    tableName: 'states_daily_records'
 })
 
-export default NationalDailyRecord
-module.exports = NationalDailyRecord
+export default StateDailyRecord
+module.exports = StateDailyRecord

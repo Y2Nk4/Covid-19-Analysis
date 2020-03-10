@@ -1,6 +1,9 @@
 {
   "presets": [
-    ["env", { "modules": false }],
+    [
+        "env",
+        { "modules": "commonjs", "targets": {"node": "current"} }
+    ],
     "stage-2"
   ],
   "plugins": [
