@@ -80,5 +80,30 @@ export default {
                 totalDeath: totalDeath && totalDeath['value'] ? totalDeath['value'] : 0
             }
         }
+    },
+
+    async getNationalGraphData (ctx) {
+        ctx.checkQuery('type').notEmpty().isInt()
+        if (ctx.errors) {
+            ctx.body = {
+                success: false,
+                error: ctx.errors
+            }
+        } else {
+            let graphData = await nationalDailyRecord.findOne({
+                where: {
+                    type: ctx.query['type'],
+                    is_regional: 0
+                },
+                order: [
+                    ['official_updated_at', 'DESC']
+                ]
+            })
+
+            ctx.body = {
+                success: true,
+                data: graphData
+            }
+        }
     }
 }

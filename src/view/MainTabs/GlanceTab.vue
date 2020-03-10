@@ -20,7 +20,11 @@
                 </el-card>
             </el-col>
             <el-col :span="24">
-                <span class="note">* Important Note: This data is collected from <a href="https://www.cdc.gov/coronavirus/2019-ncov/cases-in-us.html" target="_blank">CDC</a>'s official website. Due to CDC's delay update, this data may be incorrect!</span>
+                <span class="note">* Important Note: This data is collected from <a href="https://www.cdc.gov/coronavirus/2019-ncov/cases-in-us.html" target="_blank">CDC</a>'s official website. Due to CDC's update delay, this data may be incorrect!</span>
+            </el-col>
+
+            <el-col :span="24">
+                <v-chart :options="totalCaseOptions"></v-chart>
             </el-col>
         </el-row>
     </el-container>
@@ -36,6 +40,24 @@
                     currentConfirmed: 0,
                     totalDeath: 0,
                     statesReportingCases: 0
+                },
+
+                totalCaseOptions: {
+                    title: {
+                        text: 'Covid-19'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: [820, 932, 901, 934, 1290, 1330, 1320],
+                        type: 'line',
+                        smooth: true
+                    }]
                 }
             }
         },
@@ -63,5 +85,8 @@
 </script>
 
 <style scoped>
-
+    .echarts {
+        width: 100%;
+        height: 300px;
+    }
 </style>

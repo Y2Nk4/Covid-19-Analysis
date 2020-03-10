@@ -36,7 +36,7 @@ StateDailyRecord.init({
     },
     state_code: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     county: {
         type: Sequelize.STRING,
