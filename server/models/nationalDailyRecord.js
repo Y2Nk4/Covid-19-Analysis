@@ -35,20 +35,32 @@ NationalDailyRecord.init({
         allowNull: false
     },
     recorded_at: {
-        type: 'TIMESTAMP'
+        type: 'TIMESTAMP',
+        get () {
+            return moment(this.getDataValue('recorded_at')).format('YYYY-MM-DD HH:mm:ss')
+        }
     },
     official_updated_at: {
-        type: 'TIMESTAMP'
+        type: 'TIMESTAMP',
+        get () {
+            return moment(this.getDataValue('official_updated_at')).format('YYYY-MM-DD HH:mm:ss')
+        }
     },
     createdAt: {
         type: 'TIMESTAMP',
         defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        allowNull: false
+        allowNull: false,
+        get () {
+            return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss')
+        }
     },
     updatedAt: {
         type: 'TIMESTAMP',
         defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        allowNull: true
+        allowNull: true,
+        get () {
+            return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss')
+        }
     }
 }, {
     sequelize,

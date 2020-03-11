@@ -41,6 +41,7 @@ module.exports = {
     'Total cases': 1,
     'Total deaths': 3,
     'States reporting cases': 11,
+    'Jurisdictions reporting cases': 11,
 
     'Wuhan, China': 15,
     'Diamond Princess Cruise Ship': 16
