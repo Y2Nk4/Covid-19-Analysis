@@ -24,7 +24,7 @@ class Spider {
 
     requestGateways () {
         console.log(this.gateway)
-        async.map(Object.keys(this.gateway), (gatewayName, cb) => {
+        async.mapSeries(Object.keys(this.gateway), (gatewayName, cb) => {
             console.log(`Collecting Data from Gateway [${gatewayName}]`)
             this.gateway[gatewayName](this._SpiderConfig, this._StorageModules, cb)
         }, (err, result) => {

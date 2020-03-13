@@ -112,9 +112,11 @@ module.exports = function (config, {stateDailyRecord}, cb) {
 
         stateDailyRecord.bulkCreate(StateDailyRecords)
             .then((result) => {
+                return cb()
             })
             .catch((err) => {
                 console.log('add Error', err)
+                return cb()
             })
     })
 }

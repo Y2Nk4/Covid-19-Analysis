@@ -43,36 +43,24 @@ StateDailyRecord.init({
         allowNull: false
     },
     recorded_at: {
-        type: 'TIMESTAMP',
-        get () {
-            return moment(this.getDataValue('recorded_at')).format('YYYY-MM-DD HH:mm:ss')
-        }
+        type: Sequelize.DATE
     },
     official_updated_at: {
-        type: 'TIMESTAMP',
-        get () {
-            return moment(this.getDataValue('official_updated_at')).format('YYYY-MM-DD HH:mm:ss')
-        }
+        type: Sequelize.DATE
     },
     is_regional: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
     createdAt: {
-        type: 'TIMESTAMP',
+        type: Sequelize.DATE,
         defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        allowNull: false,
-        get () {
-            return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss')
-        }
+        allowNull: false
     },
     updatedAt: {
-        type: 'TIMESTAMP',
+        type: Sequelize.DATE,
         defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        allowNull: true,
-        get () {
-            return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss')
-        }
+        allowNull: true
     }
 }, {
     sequelize,

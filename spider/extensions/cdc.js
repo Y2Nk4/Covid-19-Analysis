@@ -30,7 +30,7 @@ module.exports = function (config, {nationalDailyRecord}, cb) {
         /* Parse Update Time Of CDC Data */
         $('.syndicate .text-red').each((i, el) => {
             if ($(el).text().indexOf('Updated') !== -1) {
-                CDCUpdateAt = moment.parseZone($(el).text().replace('Updated ', ''), 'MMMM DD, YYYY')
+                CDCUpdateAt = moment($(el).text().replace('Updated ', ''), 'MMMM DD, YYYY')
                     .format('YYYY-MM-DD HH:mm:ss')
             }
         })
@@ -63,7 +63,7 @@ module.exports = function (config, {nationalDailyRecord}, cb) {
             let title = $(el).find('td').first().text(),
                 value = $($(el).find('td')[1]).text()
 
-            console.log(NationalDailyRecordType[title])
+            console.log(title, NationalDailyRecordType[title])
 
             if (NationalDailyRecordType[title] && title !== 'Total cases') {
                 NationalDailyRecords.push({
@@ -104,9 +104,11 @@ module.exports = function (config, {nationalDailyRecord}, cb) {
                 }).then((result) => {
                     console.log('find', result)
                 })*/
+                return cb()
             })
             .catch((err) => {
                 console.log('add Error', err)
+                return cb()
             })
     })
 }

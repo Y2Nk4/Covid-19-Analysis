@@ -103,8 +103,7 @@ export default {
 
             let graphDataCollection = collect(graphData).groupBy((item, key) => {
                 /* 如果是同一天 */
-                console.log(typeof item['official_updated_at'], item['official_updated_at'], moment(item['official_updated_at']).dates(), moment(item['recorded_at']).dates(), moment(item['official_updated_at']).dates() === moment(item['recorded_at']).dates())
-                if (moment(item['official_updated_at']).dates() === moment(item['recorded_at']).dates()) {
+                if (moment(item['official_updated_at']).date() === moment(item['recorded_at']).date()) {
                     return moment(item['official_updated_at']).format('YYYY/M/D')
                 } else {
                     return moment(item['recorded_at']).format('YYYY/M/D')

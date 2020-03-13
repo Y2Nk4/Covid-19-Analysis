@@ -13,7 +13,7 @@ module.exports = {
 
     11: 'State Reporting',
     12: 'Travel-related',
-    13: 'Person-to-person spread',
+    13: 'Close contact',
     14: 'Under Investigation',
 
     15: 'Travel-related Area-Wuhan',
@@ -33,7 +33,8 @@ module.exports = {
     'State Reporting': 11,
     'Travel-related': 12,
     'Person-to-person spread': 13,
-    'Under Investigation': 14,
+    'Close contact': 13, // Same as Person-to-Person
+    'Under investigation': 14,
     'Travel-related Area-Wuhan': 15,
     'Travel-related Area-Diamond-Princess-Cruise-Ship': 16,
 

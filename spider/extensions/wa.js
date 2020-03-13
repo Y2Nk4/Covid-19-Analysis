@@ -14,18 +14,21 @@ module.exports = function (config, {stateDailyRecord}, cb) {
     let url = 'https://www.doh.wa.gov/emergencies/coronavirus'
     let STATE_CODE = 'WA'
 
+    console.log('WA Spider')
+
     /* Make Request */
     request(url, {
         headers: {
-            'User-Agent': config['UserAgent']
+            'User-Agent': config['UserAgent'],
+            'Referer': 'https://www.doh.wa.gov/emergencies/coronavirus'
         }
     }, (err, response, body) => {
         if (err) {
-            console.log(err)
+            console.log('err', err)
         }
 
-        fs.writeFileSync(path.resolve(__dirname, 'ny.html'), body, (err) => {
-            console.log(err)
+        fs.writeFileSync(path.resolve(__dirname, 'wa.html'), body, (err) => {
+            console.log('err', err)
         })
 
         let $ = cheerio.load(body),
@@ -44,7 +47,9 @@ module.exports = function (config, {stateDailyRecord}, cb) {
         /* Parse Summary Information from Washington State Health Department */
 
         let header = {}
+        console.log($('table.table.table-striped').first().find('tbody tr'))
         $('table.table.table-striped').first().find('tbody tr').each((i, el) => {
+            console.log(i)
             if (i === 0) {
                 $(el).children().each((thIndex, el) => {
                     if (thIndex > 0) {
@@ -70,44 +75,44 @@ module.exports = function (config, {stateDailyRecord}, cb) {
                             type = StateDailyRecordType[typeText]
 
                         switch (rowTitle) {
-                            case 'Total':
-                                StateDailyRecords.push({
-                                    type,
-                                    title: `${typeText} ${STATE_CODE}`,
-                                    value: parseInt($(el).text()),
-                                    state_code: STATE_CODE,
-                                    official_updated_at: UpdateAt,
-                                    is_regional: 0,
-                                    'recorded_at': moment().tz('America/New_York').format('YYYY-MM-DD HH:mm:ss')
-                                })
+                        case 'Total':
+                            StateDailyRecords.push({
+                                type,
+                                title: `${typeText} ${STATE_CODE}`,
+                                value: parseInt($(el).text()),
+                                state_code: STATE_CODE,
+                                official_updated_at: UpdateAt,
+                                is_regional: 0,
+                                'recorded_at': moment().tz('America/New_York').format('YYYY-MM-DD HH:mm:ss')
+                            })
 
-                                break
+                            break
 
-                            case 'Unassigned':
-                                StateDailyRecords.push({
-                                    type,
-                                    title: `${typeText} ${STATE_CODE}`,
-                                    value: parseInt($(el).text()),
-                                    state_code: STATE_CODE,
-                                    official_updated_at: UpdateAt,
-                                    county: 'Unassigned',
-                                    is_regional: 1,
-                                    'recorded_at': moment().tz('America/New_York').format('YYYY-MM-DD HH:mm:ss')
-                                })
-                                break
+                        case 'Unassigned':
+                            StateDailyRecords.push({
+                                type,
+                                title: `${typeText} ${STATE_CODE}`,
+                                value: parseInt($(el).text()),
+                                state_code: STATE_CODE,
+                                official_updated_at: UpdateAt,
+                                county: 'Unassigned',
+                                is_regional: 1,
+                                'recorded_at': moment().tz('America/New_York').format('YYYY-MM-DD HH:mm:ss')
+                            })
+                            break
 
-                            default:
-                                StateDailyRecords.push({
-                                    type,
-                                    title: `${typeText} ${STATE_CODE} ${rowTitle}`,
-                                    value: parseInt($(el).text()),
-                                    state_code: STATE_CODE,
-                                    official_updated_at: UpdateAt,
-                                    county: rowTitle,
-                                    is_regional: 1,
-                                    'recorded_at': moment().tz('America/New_York').format('YYYY-MM-DD HH:mm:ss')
-                                })
-                                break
+                        default:
+                            StateDailyRecords.push({
+                                type,
+                                title: `${typeText} ${STATE_CODE} ${rowTitle}`,
+                                value: parseInt($(el).text()),
+                                state_code: STATE_CODE,
+                                official_updated_at: UpdateAt,
+                                county: rowTitle,
+                                is_regional: 1,
+                                'recorded_at': moment().tz('America/New_York').format('YYYY-MM-DD HH:mm:ss')
+                            })
+                            break
                         }
                     }
                 })
@@ -118,8 +123,10 @@ module.exports = function (config, {stateDailyRecord}, cb) {
 
         stateDailyRecord.bulkCreate(StateDailyRecords)
             .then((result) => {
+                return cb()
             })
             .catch((err) => {
+                return cb()
                 console.log('add Error', err)
             })
     })
